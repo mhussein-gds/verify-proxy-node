@@ -13,67 +13,67 @@ spec:
     spec:
       restartPolicy: Always
       containers:
-      - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        ports:
-        - name: http
-          containerPort: 80
-        - name: mgmt
-          containerPort: 6667
-        livenessProbe:
-          httpGet:
-            path: /healthcheck
-            port: mgmt
-          initialDelaySeconds: 10
-          periodSeconds: 5
-        readinessProbe:
-          tcpSocket:
-            port: http
-          initialDelaySeconds: 10
-          periodSeconds: 5
-        env:
-        - name: CONNECTOR_NODE_BASE_URL
-          valueFrom:
-            configMapKeyRef:
-              name: stub-connector-pki
-              key: CONNECTOR_NODE_BASE_URL
-        - name: ENCRYPTION_CERT
-          valueFrom:
-            configMapKeyRef:
-              name: stub-connector-pki
-              key: ENCRYPTION_CERT
-        - name: ENCRYPTION_KEY
-          valueFrom:
-            configMapKeyRef:
-              name: stub-connector-pki
-              key: ENCRYPTION_KEY
-        - name: PORT
-          value: "80"
-        - name: PROXY_NODE_ENTITY_ID
-          valueFrom:
-            configMapKeyRef:
-              name: stub-connector-pki
-              key: PROXY_NODE_ENTITY_ID
-        - name: PROXY_NODE_METADATA_FOR_CONNECTOR_NODE_URL
-          value: http://proxy-node-metadata/metadata_for_connector_node.xml
-        - name: PROXY_NODE_METADATA_TRUSTSTORE
-          valueFrom:
-            configMapKeyRef:
-              name: stub-connector-pki
-              key: PROXY_NODE_METADATA_TRUSTSTORE
-        - name: PROXY_NODE_METADATA_TRUSTSTORE_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: stub-connector-pki
-              key: PROXY_NODE_METADATA_TRUSTSTORE_PASSWORD
-        - name: SIGNING_CERT
-          valueFrom:
-            configMapKeyRef:
-              name: stub-connector-pki
-              key: SIGNING_CERT
-        - name: SIGNING_KEY
-          valueFrom:
-            configMapKeyRef:
-              name: stub-connector-pki
-              key: SIGNING_KEY
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+            - name: mgmt
+              containerPort: 6667
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: mgmt
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          env:
+            - name: CONNECTOR_NODE_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: stub-connector-pki
+                  key: CONNECTOR_NODE_BASE_URL
+            - name: ENCRYPTION_CERT
+              valueFrom:
+                configMapKeyRef:
+                  name: stub-connector-pki
+                  key: ENCRYPTION_CERT
+            - name: ENCRYPTION_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: stub-connector-pki
+                  key: ENCRYPTION_KEY
+            - name: PORT
+              value: "80"
+            - name: PROXY_NODE_ENTITY_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: stub-connector-pki
+                  key: PROXY_NODE_ENTITY_ID
+            - name: PROXY_NODE_METADATA_FOR_CONNECTOR_NODE_URL
+              value: http://proxy-node-metadata/metadata_for_connector_node.xml
+            - name: PROXY_NODE_METADATA_TRUSTSTORE
+              valueFrom:
+                configMapKeyRef:
+                  name: stub-connector-pki
+                  key: PROXY_NODE_METADATA_TRUSTSTORE
+            - name: PROXY_NODE_METADATA_TRUSTSTORE_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: stub-connector-pki
+                  key: PROXY_NODE_METADATA_TRUSTSTORE_PASSWORD
+            - name: SIGNING_CERT
+              valueFrom:
+                configMapKeyRef:
+                  name: stub-connector-pki
+                  key: SIGNING_CERT
+            - name: SIGNING_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: stub-connector-pki
+                  key: SIGNING_KEY

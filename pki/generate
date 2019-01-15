@@ -149,7 +149,7 @@ Dir.chdir(output_dir) do
 
   proxy_node_vars = {
     'HUB_ENTITY_ID' => options.hub_entity_id,
-    'HUB_URL' => "#{options.idp_url}/stub-idp-demo/SAML2/SSO",
+    'HUB_URL' => "#{options.idp_url}/SAML2/SSO",
     'SIGNING_CERT' => b64(proxy_signing_keypair.cert.to_pem),
     'SIGNING_KEY' => b64(der2pk8(proxy_signing_keypair.key.to_der)),
     'SIGNING_PRIVATE_KEY_SOFTHSM' => b64(der2p8(proxy_signing_keypair.key.to_der)),

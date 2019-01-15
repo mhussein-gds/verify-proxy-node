@@ -38,7 +38,7 @@ if [[ ! -e "${PKI_DIR}" ]]; then
 	    --proxy-node-entity-id "http://proxy-node" \
 	    --connector-url "http://$(minikube ip):31100" \
 	    --proxy-url "http://$(minikube ip):31200" \
-	    --idp-url "http://$(minikube ip):31300" \
+	    --idp-url "http://localhost:50300" \
 	    --softhsm \
 	    --configmaps \
 	    "${PKI_OUTPUT_DIR}"

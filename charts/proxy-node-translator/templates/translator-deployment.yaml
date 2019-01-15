@@ -25,129 +25,129 @@ spec:
           configMap:
             name: proxy-node-pki
       containers:
-      - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
-        ports:
-        - name: http
-          containerPort: 80
-        - name: mgmt
-          containerPort: 6661
-        livenessProbe:
-          httpGet:
-            path: /healthcheck
-            port: mgmt
-          initialDelaySeconds: 20
-          periodSeconds: 5
-        readinessProbe:
-          tcpSocket:
-            port: http
-          initialDelaySeconds: 20
-          periodSeconds: 5
-        volumeMounts:
-          - mountPath: /app/keys/
-            name: proxy-node-pki
-            readOnly: true
-        env:
-        - name: CONNECTOR_NODE_ENTITY_ID
-          valueFrom:
-            configMapKeyRef:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+            - name: mgmt
+              containerPort: 6661
+          livenessProbe:
+            httpGet:
+              path: /healthcheck
+              port: mgmt
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          readinessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 5
+          volumeMounts:
+            - mountPath: /app/keys/
               name: proxy-node-pki
-              key: CONNECTOR_NODE_ENTITY_ID
-        - name: CONNECTOR_NODE_ISSUER_ID
-          valueFrom:
-            configMapKeyRef:
-              name: proxy-node-pki
-              key: CONNECTOR_NODE_ISSUER_ID
-        - name: CONNECTOR_NODE_METADATA_TRUSTSTORE
-          valueFrom:
-            configMapKeyRef:
-              name: proxy-node-pki 
-              key: CONNECTOR_NODE_METADATA_TRUSTSTORE
-        - name: CONNECTOR_NODE_METADATA_TRUSTSTORE_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: proxy-node-pki 
-              key: CONNECTOR_NODE_METADATA_TRUSTSTORE_PASSWORD
-        - name: CONNECTOR_NODE_METADATA_URL
-          value: http://stub-connector.default.svc.cluster.local/Metadata
-        - name: CONNECTOR_NODE_URL
-          valueFrom:
-            configMapKeyRef:
-              name: proxy-node-pki
-              key: CONNECTOR_NODE_URL
-        - name: HUB_ENTITY_ID
-          value: https://dev-hub.local
-        - name: HUB_FACING_ENCRYPTION_CERT
-          valueFrom:
-            configMapKeyRef:
-              name: proxy-node-pki 
-              key: HUB_FACING_ENCRYPTION_CERT
-        - name: HUB_FACING_ENCRYPTION_KEY
-          valueFrom:
-            configMapKeyRef:
-              name: proxy-node-pki 
-              key: HUB_FACING_ENCRYPTION_KEY
-        - name: HUB_FACING_SIGNING_CERT
-          valueFrom:
-            configMapKeyRef:
-              name: proxy-node-pki 
-              key: HUB_FACING_SIGNING_CERT
-        - name: HUB_FACING_SIGNING_KEY
-          valueFrom:
-            configMapKeyRef:
-              name: proxy-node-pki 
-              key: HUB_FACING_SIGNING_KEY
-        - name: HUB_METADATA_TRUSTSTORE
-          valueFrom:
-            configMapKeyRef:
-              name: proxy-node-pki 
-              key: HUB_METADATA_TRUSTSTORE
-        - name: HUB_METADATA_TRUSTSTORE_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: proxy-node-pki 
-              key: HUB_METADATA_TRUSTSTORE_PASSWORD
-        - name: HUB_METADATA_URL
-          value: http://proxy-node-metadata.default.svc.cluster.local/metadata_for_hub.xml
-        - name: HUB_URL
-          value: http://localhost:6200/stub-idp-demo/SAML2/SSO
-        - name: PORT
-          value: "80"
-        - name: PROXY_NODE_ENTITY_ID
-          value: https://dev-hub.local
-        - name: PROXY_NODE_METADATA_FOR_CONNECTOR_NODE_URL
-          value: http://proxy-node-metadata.default.svc.cluster.local/metadata_for_connector_node.xml
-        - name: PROXY_NODE_RESPONSE_ENDPOINT
-          valueFrom:
-            configMapKeyRef:
-              name: proxy-node-pki
-              key: PROXY_NODE_RESPONSE_ENDPOINT
-        - name: REDIS_SERVER_URI
-          value: redis://gateway-redis.default.svc.cluster.local:6379/
-        - name: SIGNING_CERT
-          valueFrom:
-            configMapKeyRef:
-              name: proxy-node-pki 
-              key: SIGNING_CERT
-        - name: SIGNING_KEY
-          valueFrom:
-            configMapKeyRef:
-              name: proxy-node-pki 
-              key: SIGNING_KEY
-        - name: SOFT_HSM_LIB_PATH
-          value: /usr/lib/softhsm/libsofthsm2.so
-        - name: SOFT_HSM_SIGNING_KEY_LABEL
-          value: vfpn-uk-signing
-        - name: SOFT_HSM_SIGNING_KEY_TOKEN
-          value: vfpn-uk-signing
-        - name: SOFT_HSM_SIGNING_KEY_SLOT
-          value: "0"
-        - name: SOFT_HSM_SIGNING_KEY_ID
-          value: DEF0
-        - name: SOFT_HSM_SIGNING_KEY_PIN
-          value: CHANGE-ME-123
-        - name: SOFT_HSM_SIGNING_KEY_SO_PIN
-          value: CHANGE-ME-456
-        - name: KEY_RETRIEVER_SERVICE_NAME
-          value: softHSM
+              readOnly: true
+          env:
+            - name: CONNECTOR_NODE_ENTITY_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy-node-pki
+                  key: CONNECTOR_NODE_ENTITY_ID
+            - name: CONNECTOR_NODE_ISSUER_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy-node-pki
+                  key: CONNECTOR_NODE_ISSUER_ID
+            - name: CONNECTOR_NODE_METADATA_TRUSTSTORE
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy-node-pki
+                  key: CONNECTOR_NODE_METADATA_TRUSTSTORE
+            - name: CONNECTOR_NODE_METADATA_TRUSTSTORE_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy-node-pki
+                  key: CONNECTOR_NODE_METADATA_TRUSTSTORE_PASSWORD
+            - name: CONNECTOR_NODE_METADATA_URL
+              value: http://stub-connector.default.svc.cluster.local/Metadata
+            - name: CONNECTOR_NODE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy-node-pki
+                  key: CONNECTOR_NODE_URL
+            - name: HUB_ENTITY_ID
+              value: https://dev-hub.local
+            - name: HUB_FACING_ENCRYPTION_CERT
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy-node-pki
+                  key: HUB_FACING_ENCRYPTION_CERT
+            - name: HUB_FACING_ENCRYPTION_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy-node-pki
+                  key: HUB_FACING_ENCRYPTION_KEY
+            - name: HUB_FACING_SIGNING_CERT
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy-node-pki
+                  key: HUB_FACING_SIGNING_CERT
+            - name: HUB_FACING_SIGNING_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy-node-pki
+                  key: HUB_FACING_SIGNING_KEY
+            - name: HUB_METADATA_TRUSTSTORE
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy-node-pki
+                  key: HUB_METADATA_TRUSTSTORE
+            - name: HUB_METADATA_TRUSTSTORE_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy-node-pki
+                  key: HUB_METADATA_TRUSTSTORE_PASSWORD
+            - name: HUB_METADATA_URL
+              value: http://proxy-node-metadata.default.svc.cluster.local/metadata_for_hub.xml
+            - name: HUB_URL
+              value: http://localhost:6200/stub-idp-demo/SAML2/SSO
+            - name: PORT
+              value: "80"
+            - name: PROXY_NODE_ENTITY_ID
+              value: https://dev-hub.local
+            - name: PROXY_NODE_METADATA_FOR_CONNECTOR_NODE_URL
+              value: http://proxy-node-metadata.default.svc.cluster.local/metadata_for_connector_node.xml
+            - name: PROXY_NODE_RESPONSE_ENDPOINT
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy-node-pki
+                  key: PROXY_NODE_RESPONSE_ENDPOINT
+            - name: REDIS_SERVER_URI
+              value: redis://gateway-redis.default.svc.cluster.local:6379/
+            - name: SIGNING_CERT
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy-node-pki
+                  key: SIGNING_CERT
+            - name: SIGNING_KEY
+              valueFrom:
+                configMapKeyRef:
+                  name: proxy-node-pki
+                  key: SIGNING_KEY
+            - name: SOFT_HSM_LIB_PATH
+              value: /usr/lib/softhsm/libsofthsm2.so
+            - name: SOFT_HSM_SIGNING_KEY_LABEL
+              value: vfpn-uk-signing
+            - name: SOFT_HSM_SIGNING_KEY_TOKEN
+              value: vfpn-uk-signing
+            - name: SOFT_HSM_SIGNING_KEY_SLOT
+              value: "0"
+            - name: SOFT_HSM_SIGNING_KEY_ID
+              value: DEF0
+            - name: SOFT_HSM_SIGNING_KEY_PIN
+              value: CHANGE-ME-123
+            - name: SOFT_HSM_SIGNING_KEY_SO_PIN
+              value: CHANGE-ME-456
+            - name: KEY_RETRIEVER_SERVICE_NAME
+              value: softHSM
