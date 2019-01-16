@@ -120,6 +120,17 @@ stub_idp_config = {
   ],
   'enabled' => true
 }
+
+post_office = {
+  'id' => 'post_office',
+  'entity_id' => 'http://stub_idp.acme.org/post-office-test-rp/SSO/POST',
+  'sso_uri' => 'http://localhost:50140/post-office-test-rp/SAML2/SSO',
+  'organization' => { 'name' => 'post-office-stub', 'display_name' => 'Post Office', 'url' => 'http://post-office.com' },
+  'signing_certificates' => [
+    { 'x509' => '' }
+  ],
+  'enabled' => true
+}
 hub_metadata_xml = generate_hub_metadata(hub_config, [stub_idp_config], root_keypair.cert)
 hub_metadata_xml_signed = sign_metadata(hub_metadata_xml, hub_meta_keypair, options.xmlsectool_path)
 
@@ -142,8 +153,8 @@ Dir.mkdir(output_dir) unless Dir.exist?(output_dir)
 Dir.chdir(output_dir) do
   create_truststore('ida_metadata_truststore.ts', options.truststore_pass, {'root_ca' => root_keypair.cert})
 
-  create_file('metadata_for_hub.xml', hub_metadata_xml_signed)
-  create_file('metadata_for_connector_node.xml', proxy_node_metadata_xml_signed)
+  create_file('hub_metadata.xml', hub_metadata_xml_signed)
+  create_file('proxy_node_metadata.xml', proxy_node_metadata_xml_signed)
 
   metadata_truststore = File.open('ida_metadata_truststore.ts', 'rb').read
 

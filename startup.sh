@@ -28,6 +28,8 @@ for component in $COMPONENTS; do
 		--set image.tag=${tag}
 done
 
+rm -rf "${PKI_DIR}"
+
 if [[ ! -e "${PKI_DIR}" ]]; then
 	pushd "${PN_PROJECT_DIR}/pki"
 	  rm -f "${PKI_OUTPUT_DIR}/*"
@@ -41,7 +43,8 @@ if [[ ! -e "${PKI_DIR}" ]]; then
 	    --idp-url "http://localhost:50300" \
 	    --softhsm \
 	    --configmaps \
-	    "${PKI_OUTPUT_DIR}"
+	    "${PKI_OUTPUT_DIR}" \
+	    --files
 	popd
 fi
 

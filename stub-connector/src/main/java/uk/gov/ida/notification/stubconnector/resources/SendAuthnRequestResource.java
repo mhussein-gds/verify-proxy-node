@@ -46,7 +46,7 @@ public class SendAuthnRequestResource {
                 AttributeConstants.EIDAS_DATE_OF_BIRTH_ATTRIBUTE_NAME
         );
 
-        String authnRequestId = UUID.randomUUID().toString();
+        String authnRequestId = "_" + UUID.randomUUID().toString();
 
         session.setAttribute("authn_id", authnRequestId);
 
