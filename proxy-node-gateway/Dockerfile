@@ -25,5 +25,6 @@ COPY --from=build /app/${component}/build/install/${component} /app
 
 ENV CONFIG_FILE config.yml
 ENV COMPONENT $component
+ENV JAVA_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5009"
 ENTRYPOINT ["/app/bin/proxy-node-gateway"]
 CMD []

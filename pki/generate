@@ -121,13 +121,25 @@ stub_idp_config = {
   'enabled' => true
 }
 
+  raw1 = File.read "../../metadataidainter.crt" # DER- or PEM-encoded
+  certificate1 = OpenSSL::X509::Certificate.new raw1
+
+  raw2 = File.read "../../metadataidaca.crt" # DER- or PEM-encoded
+  certificate2 = OpenSSL::X509::Certificate.new raw2
+
+  raw3 = File.read "../../ida-hub-acceptance-tests/certs/stub_idp_signing.crt" # DER- or PEM-encoded
+  certificate3 = OpenSSL::X509::Certificate.new raw3
+
+  raw4 = File.read "../../metadatatestca.crt" # DER- or PEM-encoded
+    certificate4 = OpenSSL::X509::Certificate.new raw4
+
 post_office = {
   'id' => 'post_office',
   'entity_id' => 'http://stub_idp.acme.org/post-office-test-rp/SSO/POST',
   'sso_uri' => 'http://localhost:50140/post-office-test-rp/SAML2/SSO',
   'organization' => { 'name' => 'post-office-stub', 'display_name' => 'Post Office', 'url' => 'http://post-office.com' },
   'signing_certificates' => [
-    { 'x509' => '' }
+    { 'x509' => strip_pem(certificate3.to_pem) }
   ],
   'enabled' => true
 }
@@ -151,7 +163,16 @@ proxy_node_metadata_xml_signed = sign_metadata(proxy_node_metadata_xml, proxy_no
 # Output
 Dir.mkdir(output_dir) unless Dir.exist?(output_dir)
 Dir.chdir(output_dir) do
-  create_truststore('ida_metadata_truststore.ts', options.truststore_pass, {'root_ca' => root_keypair.cert})
+
+
+
+  create_truststore('ida_metadata_truststore.ts', options.truststore_pass, {
+
+      'root_ca' => root_keypair.cert,
+      'idaca' => certificate1,
+      'idainter' => certificate2,
+      'metadatatestca' => certificate4
+  })
 
   create_file('hub_metadata.xml', hub_metadata_xml_signed)
   create_file('proxy_node_metadata.xml', proxy_node_metadata_xml_signed)

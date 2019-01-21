@@ -72,3 +72,5 @@ done
 
 echo ""
 echo "http://$(minikube ip):31100/Request"
+echo "http://$(minikube ip):31100/Request" | pbcopy
+

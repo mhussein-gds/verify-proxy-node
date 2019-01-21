@@ -33,17 +33,17 @@ spec:
               containerPort: 80
             - name: mgmt
               containerPort: 6661
-          livenessProbe:
-            httpGet:
-              path: /healthcheck
-              port: mgmt
-            initialDelaySeconds: 60
-            periodSeconds: 10
-          readinessProbe:
-            tcpSocket:
-              port: http
-            initialDelaySeconds: 20
-            periodSeconds: 5
+          #          livenessProbe:
+          #            httpGet:
+          #              path: /healthcheck
+          #              port: mgmt
+          #            initialDelaySeconds: 60
+          #            periodSeconds: 15
+          #          readinessProbe:
+          #            tcpSocket:
+          #              port: http
+          #            initialDelaySeconds: 20
+          #            periodSeconds: 10
           volumeMounts:
             - mountPath: /app/keys/
               name: proxy-node-pki
@@ -109,7 +109,7 @@ spec:
                   name: proxy-node-pki
                   key: HUB_METADATA_TRUSTSTORE_PASSWORD
             - name: HUB_METADATA_URL
-              value: http://proxy-node-metadata.default.svc.cluster.local/metadata_for_hub.xml
+              value: http://192.168.99.1:55000/local/metadata.xml
             - name: HUB_URL
               value: http://localhost:6200/stub-idp-demo/SAML2/SSO
             - name: PORT
