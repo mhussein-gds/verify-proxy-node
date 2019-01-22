@@ -71,7 +71,7 @@ spec:
                   name: proxy-node-pki
                   key: CONNECTOR_NODE_URL
             - name: HUB_ENTITY_ID
-              value: https://dev-hub.local
+              value: https://local.signin.service.gov.uk
             - name: HUB_FACING_ENCRYPTION_CERT
               valueFrom:
                 configMapKeyRef:

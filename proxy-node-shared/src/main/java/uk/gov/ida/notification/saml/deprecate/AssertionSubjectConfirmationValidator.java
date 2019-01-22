@@ -19,9 +19,5 @@ public class AssertionSubjectConfirmationValidator extends BasicAssertionSubject
             SamlValidationSpecificationFailure failure = SamlTransformationErrorFactory.notMatchInResponseTo(subjectConfirmationData.getInResponseTo(), requestId);
             throw new SamlTransformationErrorException(failure.getErrorMessage(), failure.getLogLevel());
         }
-        if (!subjectConfirmationData.getRecipient().equals(expectedRecipientId)) {
-            SamlValidationSpecificationFailure failure = SamlTransformationErrorFactory.incorrectRecipientFormat(subjectConfirmationData.getRecipient(), expectedRecipientId);
-            throw new SamlTransformationErrorException(failure.getErrorMessage(), failure.getLogLevel());
-        }
     }
  }
