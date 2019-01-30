@@ -98,7 +98,7 @@ subprojects {
                 "uk.gov.ida:saml-metadata-bindings:${saml_libs_version}",
                 "uk.gov.ida:saml-security:${saml_libs_version}",
                 "uk.gov.ida:saml-utils:${saml_libs_version}",
-                "uk.gov.ida:security-utils:${utils_version}",
+                enforcedPlatform("uk.gov.ida:security-utils:${utils_version}"),
         )
 
         verify_saml_test (
