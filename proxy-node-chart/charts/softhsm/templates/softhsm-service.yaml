@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-hsm
+  name: {{ include "softhsm.fullname" . }}
   labels:
-    app.kubernetes.io/name: hsm
-    helm.sh/chart: {{ .Chart.Name }}
+    app.kubernetes.io/name: {{ include "softhsm.name" . }}
+    helm.sh/chart: {{ include "softhsm.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
@@ -12,7 +12,7 @@ spec:
   ports:
   - name: pkcs11
     port: 5656
-    targetPort: 5656
+    targetPort: pkcs11
   selector:
-    app.kubernetes.io/name: hsm
+    app.kubernetes.io/name: {{ include "softhsm.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

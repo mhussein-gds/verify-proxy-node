@@ -1,1 +1,7 @@
 replicaCount: 1
+
+stubConnector:
+  image:
+    repository: registry.tools.verify.govsvc.uk/eidas/stub-connector
+    tag: latest
+    pullPolicy: IfNotPresent

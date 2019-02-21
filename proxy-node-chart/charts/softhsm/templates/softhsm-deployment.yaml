@@ -41,32 +41,32 @@ spec:
         - name: SOFT_HSM_SIGNING_KEY_PIN
           valueFrom:
             secretKeyRef:
-              name: {{ .Release.Name }}-hsm
+              name: {{ include "softhsm.fullname" . }}
               key: signingKeyPIN
         - name: SOFT_HSM_SIGNING_KEY_LABEL
           valueFrom:
             secretKeyRef:
-              name: {{ .Release.Name }}-hsm
+              name: {{ include "softhsm.fullname" . }}
               key: signingKeyLabel
         - name: SOFT_HSM_SIGNING_KEY_TOKEN
           valueFrom:
             secretKeyRef:
-              name: {{ .Release.Name }}-hsm
+              name: {{ include "softhsm.fullname" . }}
               key: signingKeyToken
         - name: SOFT_HSM_SIGNING_KEY_SLOT
           valueFrom:
             secretKeyRef:
-              name: {{ .Release.Name }}-hsm
+              name: {{ include "softhsm.fullname" . }}
               key: signingKeySlot
         - name: SOFT_HSM_SIGNING_KEY_ID
           valueFrom:
             secretKeyRef:
-              name: {{ .Release.Name }}-hsm
+              name: {{ include "softhsm.fullname" . }}
               key: signingKeyID
         - name: SOFT_HSM_SIGNING_KEY_SO_PIN
           valueFrom:
             secretKeyRef:
-              name: {{ .Release.Name }}-hsm
+              name: {{ include "softhsm.fullname" . }}
               key: signingKeySOPIN
       volumes:
         - name: proxy-node-pki

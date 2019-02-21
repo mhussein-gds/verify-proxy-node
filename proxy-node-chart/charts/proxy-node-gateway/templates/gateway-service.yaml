@@ -1,17 +1,21 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-gateway
+  name: {{ include "proxy-node-gateway.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "proxy-node-gateway.name" . }}
+    helm.sh/chart: {{ include "proxy-node-gateway.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
-  - name: "6100"
-    port: 6100
-    targetPort: 80
-    nodePort: 31200
-  - name: "6601"
+  - name: http
+    port: 31200
+    targetPort: http
+  - name: mgmt
     port: 6601
-    targetPort: 6601
+    targetPort: mgmt
   selector:
-    app.kubernetes.io/name: gateway
+    app.kubernetes.io/name: {{ include "proxy-node-gateway.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

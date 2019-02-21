@@ -71,4 +71,3 @@ spec:
               key: CONNECTOR_NODE_METADATA_TRUSTSTORE_PASSWORD
         - name: REDIS_SERVER_URI
           value: redis://{{ .Release.Name }}-gateway-redis:6379/
-

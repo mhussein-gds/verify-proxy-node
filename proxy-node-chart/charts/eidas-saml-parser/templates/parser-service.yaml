@@ -1,17 +1,23 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Release.Name }}-parser
+  name: {{ include "eidas-saml-parser.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "eidas-saml-parser.name" . }}
+    helm.sh/chart: {{ include "eidas-saml-parser.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
-  - name: "6400"
-    port: 6400
-    targetPort: 80
-    nodePort: 31400
-  - name: "6008"
+  - name: http
+    port: 31400
+    targetPort: http
+    protocol: TCP
+  - name: mgmt
     port: 6008
-    targetPort: 6008
+    targetPort: mgmt
+    protocol: TCP
   selector:
-    app.kubernetes.io/name: parser
+    app.kubernetes.io/name: {{ include "eidas-saml-parser.name" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}

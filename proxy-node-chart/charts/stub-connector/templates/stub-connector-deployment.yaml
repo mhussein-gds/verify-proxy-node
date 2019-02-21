@@ -24,8 +24,8 @@ spec:
       restartPolicy: Always
       containers:
       - name: {{ .Chart.Name }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        image: "{{ .Values.stubConnector.image.repository }}:{{ .Values.stubConnector.image.tag }}"
+        imagePullPolicy: {{ .Values.stubConnector.image.pullPolicy }}
         ports:
         - name: http
           containerPort: 80
