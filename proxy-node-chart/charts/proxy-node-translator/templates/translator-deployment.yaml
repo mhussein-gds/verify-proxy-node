@@ -25,7 +25,7 @@ spec:
       volumes:
         - name: proxy-node-pki
           secret:
-            secretName: proxy-node-pki
+            secretName: {{ .Release.Name }}-proxy-node-pki
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -68,15 +68,15 @@ spec:
         - name: CONNECTOR_NODE_ISSUER_ID
           valueFrom:
             secretKeyRef:
-              name: proxy-node-pki
+              name: {{ .Release.Name }}-proxy-node-pki
               key: CONNECTOR_NODE_ISSUER_ID
         - name: SIGNING_CERT
           valueFrom:
             secretKeyRef:
-              name: proxy-node-pki
+              name: {{ .Release.Name }}-proxy-node-pki
               key: SIGNING_CERT
         - name: SIGNING_KEY
           valueFrom:
             secretKeyRef:
-              name: proxy-node-pki
+              name: {{ .Release.Name }}-proxy-node-pki
               key: SIGNING_KEY

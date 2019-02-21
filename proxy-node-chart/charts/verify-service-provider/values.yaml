@@ -5,14 +5,12 @@
 replicaCount: 1
 
 image:
-  repository: govukverify/verify-service-provider
-  tag: "latest"
+  repository: registry.tools.verify.govsvc.uk/eidas/verify-service-provider
+  tag: latest
   pullPolicy: IfNotPresent
 
 nameOverride: ""
 fullnameOverride: ""
-
-keySecretName: verify-service-provider
 
 configFile:
   server:

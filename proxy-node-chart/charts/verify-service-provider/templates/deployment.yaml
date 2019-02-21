@@ -32,37 +32,37 @@ spec:
             - name: LOG_LEVEL
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.keySecretName }}
+                  name: {{ .Release.Name }}-vsp
                   key: LOG_LEVEL
             - name: CLOCK_SKEW
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.keySecretName }}
+                  name: {{ .Release.Name }}-vsp
                   key: CLOCK_SKEW
             - name: SERVICE_ENTITY_IDS
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.keySecretName }}
+                  name: {{ .Release.Name }}-vsp
                   key: SERVICE_ENTITY_IDS
             - name: VERIFY_ENVIRONMENT
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.keySecretName }}
+                  name: {{ .Release.Name }}-vsp
                   key: VERIFY_ENVIRONMENT
             - name: SAML_SIGNING_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.keySecretName }}
+                  name: {{ .Release.Name }}-vsp
                   key: SAML_SIGNING_KEY
             - name: SAML_PRIMARY_ENCRYPTION_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.keySecretName }}
+                  name: {{ .Release.Name }}-vsp
                   key: SAML_PRIMARY_ENCRYPTION_KEY
             - name: SAML_SECONDARY_ENCRYPTION_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.keySecretName }}
+                  name: {{ .Release.Name }}-vsp
                   key: SAML_SECONDARY_ENCRYPTION_KEY
           ports:
             - name: http

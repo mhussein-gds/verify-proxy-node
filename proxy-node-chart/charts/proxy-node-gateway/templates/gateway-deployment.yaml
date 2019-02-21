@@ -46,10 +46,10 @@ spec:
         - name: PORT
           value: "80"
         - name: REDIS_SERVER_URI
-          value: redis://{{ .Release.Name }}-gateway-redis:6379/
+          value: redis://{{ include "proxy-node-gateway.fullname" . }}-redis:6379/
         - name: TRANSLATOR_URL
-          value: http://{{ .Release.Name }}-translator:6300/SAML2/SSO/Response/POST
+          value: http://{{ .Release.Name }}-proxy-node-translator:6300/SAML2/SSO/Response/POST
         - name: EIDAS_SAML_PARSER_URL
-          value: http://{{ .Release.Name }}-parser:6400/
+          value: http://{{ .Release.Name }}-eidas-saml-parser:31400/
         - name: VERIFY_SERVICE_PROVIDER_URL
-          value: http://127.0.0.1:8080/ # this needs to be set to the actual vsp when we have it
+          value: http://{{ .Release.Name }}-verify-service-provider/

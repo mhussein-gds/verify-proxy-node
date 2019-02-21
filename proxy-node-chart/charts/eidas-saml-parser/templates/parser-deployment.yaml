@@ -50,24 +50,24 @@ spec:
         - name: CONNECTOR_NODE_ENTITY_ID
           valueFrom:
             secretKeyRef:
-              name: proxy-node-pki
+              name: {{ .Release.Name }}-proxy-node-pki
               key: CONNECTOR_NODE_ENTITY_ID
         - name: PROXY_NODE_AUTHN_REQUEST_ENDPOINT
           valueFrom:
             secretKeyRef:
-              name: proxy-node-pki
+              name: {{ .Release.Name }}-proxy-node-pki
               key: PROXY_NODE_AUTHN_REQUEST_ENDPOINT
         - name: CONNECTOR_NODE_METADATA_URL
           value: http://{{ .Release.Name }}-stub-connector/Metadata
         - name: CONNECTOR_NODE_METADATA_TRUSTSTORE
           valueFrom:
             secretKeyRef:
-              name: proxy-node-pki
+              name: {{ .Release.Name }}-proxy-node-pki
               key: CONNECTOR_NODE_METADATA_TRUSTSTORE
         - name: CONNECTOR_NODE_METADATA_TRUSTSTORE_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: proxy-node-pki
+              name: {{ .Release.Name }}-proxy-node-pki
               key: CONNECTOR_NODE_METADATA_TRUSTSTORE_PASSWORD
         - name: REDIS_SERVER_URI
-          value: redis://{{ .Release.Name }}-gateway-redis:6379/
+          value: redis://{{ .Release.Name }}-proxy-node-gateway-redis:6379/
