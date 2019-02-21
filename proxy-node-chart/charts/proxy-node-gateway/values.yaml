@@ -1,1 +1,6 @@
 replicaCount: 1
+
+image:
+  repository: registry.tools.verify.govsvc.uk/eidas/gateway
+  tag: latest
+  pullPolicy: IfNotPresent

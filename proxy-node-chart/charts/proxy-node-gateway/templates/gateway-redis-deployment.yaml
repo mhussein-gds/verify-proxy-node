@@ -1,20 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-gateway-redis
+  name: {{ include "proxy-node-gateway.fullname" . }}-redis
   labels:
-    app.kubernetes.io/name: gateway-redis
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/name: {{ include "proxy-node-gateway.name" . }}-redis
+    helm.sh/chart: {{ include "proxy-node-gateway.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}-redis
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
-      app.kubernetes.io/name: gateway-redis
+      app.kubernetes.io/name: {{ include "proxy-node-gateway.name" . }}
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: gateway-redis
+        app.kubernetes.io/name: {{ include "proxy-node-gateway.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       containers:

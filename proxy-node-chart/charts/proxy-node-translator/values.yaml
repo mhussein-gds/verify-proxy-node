@@ -1,5 +1,9 @@
 replicaCount: 1
 
+image:
+  repository: registry.tools.verify.govsvc.uk/eidas/translator
+  tag: latest
+  pullPolicy: IfNotPresent
 
 hsm:
   proxySocketService: softhsm

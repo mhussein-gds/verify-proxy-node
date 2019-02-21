@@ -1,1 +1,6 @@
 replicaCount: 1
+
+image:
+  repository: registry.tools.verify.govsvc.uk/eidas/parser
+  tag: latest
+  pullPolicy: IfNotPresent

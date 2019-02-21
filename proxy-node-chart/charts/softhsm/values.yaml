@@ -1,4 +1,8 @@
 replicaCount: 1
+image:
+  repository: registry.tools.verify.govsvc.uk/eidas/cloudhsm
+  tag: latest
+  pullPolicy: IfNotPresent
 
 signingKeyPIN: "fake:user"
 signingKeyLabel: vfpn-uk-signing
